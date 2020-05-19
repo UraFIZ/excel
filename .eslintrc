@@ -8,5 +8,5 @@
     "rules": {
 
     },
-    "extends": ["eslint:recommended", "google"]
+    "extends": ["google"]
 }
