@@ -12,7 +12,16 @@ class Dom {
       }
       return this.$nodeElement.outerHTML.trim()
     }
-  
+    text(text) {
+      if(typeof text === 'string') {
+        this.$nodeElement.textContent = text
+        return this
+      }
+      if(this.$nodeElement.tagName.toLowerCase() === 'input') {
+        return this.$nodeElement.value.trim()
+      }
+      return this.$nodeElement.textContent.trim()
+    }
     clear() {
       this.html('')
       return this
@@ -41,6 +50,9 @@ class Dom {
         this.$nodeElement.style[key] = value
       }
     }
+    find(selector) {
+      return $(this.$nodeElement.querySelector(selector))
+    }
     append(node) {
       if (node instanceof Dom) {
         node = node.$nodeElement
@@ -54,7 +66,30 @@ class Dom {
   
       return this
     }
-  }
+    addClass(className) {
+      this.$nodeElement.classList.add(className)
+      return this
+    }
+    id(parse) {
+      if (parse) {
+        const parsed = this.id().split(':')
+        return {
+          row: +parsed[0],
+          col: +parsed[1]
+        }
+      }
+      return this.data.id
+    }
+
+    removeClass(className) {
+      this.$nodeElement.classList.remove(className)
+      return this
+    }
+    focus() {
+      this.$nodeElement.focus()
+      return this
+    }
+  } 
   
   // event.target
   export function $(selector) {
