@@ -3,6 +3,7 @@ import {$} from '@core/dom'
 export function resizeHandler (root, event) {
     const $resizer = $(event.target)
     const $parent = $resizer.closest('[data-type="resizable"]')
+    console.log('$parent:', $parent)
     const coords = $parent.getCoords()
     const type = $resizer.data.resize
     const sideProp = type === 'col' ? 'bottom' : 'right'
@@ -31,7 +32,8 @@ export function resizeHandler (root, event) {
 
       if (type === 'col') {
         $parent.css({width: value + 'px'})
-        root.$root.findAll(`[data-col="${$parent.data.col}"]`)
+        console.log(root)
+        root.findAll(`[data-col="${$parent.data.col}"]`)
             .forEach(el => el.style.width = value + 'px')
       } else {
         $parent.css({height: value + 'px'})
